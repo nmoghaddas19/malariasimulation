@@ -148,8 +148,9 @@ peak_season_offset <- function(parameters) {
 #' @param Z the mean probability that a mosquito is repelled
 #' @param Z the mean probability that a mosquito is repelled
 #' @noRd
-death_rate <- function(f, W, Z, species, parameters) {
-  mum <- parameters$mum[[species]]
+death_rate <- function(f, W, Z, species, parameters, timestep) {
+  mum <- parameters$mum[[species]] 
+  mum <- ATSB_adjusted_mortality(mum, parameters, species, timestep)
   p1_0 <- exp(-mum * parameters$foraging_time[[species]])
   gonotrophic_cycle <- get_gonotrophic_cycle(species, parameters)
   p2 <- exp(-mum * gonotrophic_cycle)
